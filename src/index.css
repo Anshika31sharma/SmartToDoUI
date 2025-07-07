@@ -1,2 +1,24 @@
 @import "tailwindcss";
 @import "react-toastify/dist/ReactToastify.css";
+
+
+.toast-success {
+  border-left: 6px solid #22c55e; 
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.toast-error {
+  border-left: 6px solid #ef4444; 
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+
+.toast-info {
+  border-left: 6px solid #3b82f6;
+  padding-left: 12px;
+  font-weight: 500;
+}
+
+

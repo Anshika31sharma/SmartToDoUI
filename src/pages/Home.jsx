@@ -8,19 +8,20 @@ export default function Home() {
 
   return (
     <div className="max-w-3xl mx-auto p-4 relative">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-black mb-6 drop-shadow-sm">
-        🚀 Smart To-Do List
+      <h1 className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-8 drop-shadow">
+        🚀 <span className="text-black">Smart To-Do List</span>
       </h1>
 
       <TaskForm />
       <TaskList />
-      <button
-        className="fixed bottom-6 right-6 bg-indigo-600 text-white w-20 h-20 flex items-center justify-center rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 text-2xl"
-        onClick={() => setSelectedTask({})}
-        aria-label="Add new task"
-      >
-        +
-      </button>
+     <button
+  aria-label="Add new task"
+  onClick={() => setSelectedTask({})}
+  className="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white text-3xl w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ease-in-out"
+>
+  +
+</button>
+
     </div>
   );
 }

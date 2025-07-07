@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import useTaskBuckets from "../hooks/useTaskBuckets";
@@ -67,9 +67,17 @@ export default function TaskList() {
         buckets={buckets}
         render={(tasks) =>
           tasks.length === 0 ? (
-            <div className="text-center text-gray-500 mt-10">
-              📝 No tasks found. Click the <span className="font-semibold">+</span> button on the right bottom corner to add a new one!
-            </div>
+            <p className="text-center text-gray-500 text-lg mt-10">
+              📝 No tasks found.
+              <br />
+              <span className="inline-block mt-2">
+                Click the{" "}
+                <span className="text-indigo-600 font-semibold text-xl">+</span>{" "}
+                button on the
+                <span className="font-semibold"> bottom-right </span> corner to
+                add a new task.
+              </span>
+            </p>
           ) : (
             tasks.map((task) => <TaskCard key={task.id} task={task} />)
           )

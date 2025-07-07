@@ -15,10 +15,15 @@ export default function TaskCard({ task }) {
     mutationFn: (updates) => api.put(`/tasks/${task.id}`, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      toast.success("Task marked as completed");
+      toast.success("✅ Task marked as completed", {
+        autoClose: 3000,
+        className: "toast-success",
+      });
     },
     onError: () => {
-      toast.error("Failed to update task");
+      toast.error("❌ Failed to update task", {
+        className: "toast-error",
+      });
     },
   });
 
@@ -26,10 +31,15 @@ export default function TaskCard({ task }) {
     mutationFn: () => api.delete(`/tasks/${task.id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      toast.success("Task deleted");
+      toast.error("🗑️ Task deleted", {
+        autoClose: 3000,
+        className: "toast-error",
+      });
     },
     onError: () => {
-      toast.error("Failed to delete task");
+      toast.error("❌ Failed to delete task", {
+        className: "toast-error",
+      });
     },
   });
 
@@ -38,7 +48,7 @@ export default function TaskCard({ task }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      layout
+      transition={{ duration: 0.3 }}
       className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-all"
     >
       <div className="flex justify-between items-start mb-1">
@@ -50,7 +60,7 @@ export default function TaskCard({ task }) {
         <p className="text-sm text-gray-600 mb-2">{task.description}</p>
       )}
 
-      <div className="flex gap-2 text-sm">
+      <div className="flex flex-wrap gap-2 text-sm">
         {!task.isCompleted && (
           <button
             onClick={() => updateMutation.mutate({ isCompleted: true })}
@@ -62,7 +72,7 @@ export default function TaskCard({ task }) {
         )}
         <button
           onClick={() => setSelectedTask(task)}
-          className="bg-blue-500 hover:bg-blue-600 px-3 py-1 text-white rounded transition"
+          className="border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 transition"
           aria-label="Edit task"
         >
           Edit

@@ -32,10 +32,13 @@ export default function TaskForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       setSelectedTask(null);
-      toast.success("Task created!");
+      toast.success(" Task created!", {
+        autoClose: 3000,
+        className: "toast-success",
+      });
     },
     onError: () => {
-      toast.error("Failed to create task!");
+      toast.error("❌ Failed to create task.");
     },
   });
 
@@ -44,10 +47,13 @@ export default function TaskForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       setSelectedTask(null);
-      toast.success("Task updated!");
+      toast.info("✏️ Task updated.", {
+        autoClose: 3000,
+        className: "toast-info",
+      });
     },
     onError: () => {
-      toast.error("Failed to update task!");
+      toast.error("❌ Failed to update task.");
     },
   });
 
