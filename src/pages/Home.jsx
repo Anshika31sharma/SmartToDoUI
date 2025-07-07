@@ -7,9 +7,9 @@ export default function Home() {
   const { setSelectedTask } = useTaskContext();
 
   return (
-    <div className="max-w-3xl mx-auto p-4 relative">
+    <div className="max-w-3xl  mx-auto p-4 relative">
       <h1 className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-8 drop-shadow">
-        🚀 <span className="text-black">Smart To-Do List</span>
+         <span className="text-black">Smart To-Do List</span>
       </h1>
 
       <TaskForm />

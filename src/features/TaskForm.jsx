@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 export default function TaskForm() {
   const { selectedTask, setSelectedTask } = useTaskContext();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -17,13 +18,23 @@ export default function TaskForm() {
 
   useEffect(() => {
     if (selectedTask?.id) {
+      const formattedDeadline = selectedTask.deadline
+        ? new Date(selectedTask.deadline).toISOString().slice(0, 16)
+        : "";
+
       setForm({
         title: selectedTask.title || "",
         description: selectedTask.description || "",
-        deadline: selectedTask.deadline?.slice(0, 16) || "",
+        deadline: formattedDeadline,
       });
     } else {
-      setForm({ title: "", description: "", deadline: "" });
+      const now = new Date();
+      const formattedNow = now.toISOString().slice(0, 16);
+      setForm({
+        title: "",
+        description: "",
+        deadline: formattedNow,
+      });
     }
   }, [selectedTask]);
 
@@ -32,7 +43,7 @@ export default function TaskForm() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       setSelectedTask(null);
-      toast.success(" Task created!", {
+      toast.success("✅ Task created!", {
         autoClose: 3000,
         className: "toast-success",
       });

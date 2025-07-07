@@ -38,35 +38,27 @@ export default function TaskList() {
 
   const buckets = useTaskBuckets(filteredTasks);
 
-  if (isLoading)
-    return (
-      <div className="flex flex-col items-center justify-center mt-20 text-gray-600">
-        <div className="w-10 h-10 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
-        <p className="mt-4 text-base font-medium">Loading tasks...</p>
-      </div>
-    );
+ if (isLoading)
+  return (
+    <div className="flex flex-col items-center justify-center mt-20 text-gray-600">
+      <div className="w-10 h-10 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+      <p className="mt-4 text-base font-medium">Loading tasks...</p>
+    </div>
+  );
+
   return (
     <>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+      <div className="flex justify-center items-center mb-4 gap-2">
         <input
           type="search"
           placeholder="Search tasks..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="p-2 border rounded w-full sm:w-1/2"
+          className="p-2 border bg-white text-black rounded w-full sm:w-1/2"
           aria-label="Search tasks"
         />
-        <select
-          className="p-2 border rounded sm:w-auto"
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-          aria-label="Sort tasks"
-        >
-          <option value="deadline">Sort by Deadline</option>
-          <option value="createdAt">Sort by Created At</option>
-        </select>
+     
       </div>
-
       <TaskTabs
         buckets={buckets}
         render={(tasks) =>
@@ -83,7 +75,12 @@ export default function TaskList() {
               </span>
             </p>
           ) : (
-            tasks.map((task) => <TaskCard key={task.id} task={task} />)
+           <div className="space-y-4">
+  {tasks.map((task) => (
+    <TaskCard key={task.id} task={task} />
+  ))}
+</div>
+
           )
         }
       />
