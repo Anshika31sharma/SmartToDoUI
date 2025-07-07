@@ -1,6 +1,6 @@
 # 🚀 Smart To-Do List
 
-A beautiful, animated, responsive, and feature-rich to-do list application built with **React**, **Tailwind CSS**, **React Query**, **Framer Motion**, and **Mock Service Worker (MSW)**. Tasks are persisted in **localStorage**, making it fully functional without a backend.
+A beautiful, animated, responsive, and feature-rich to-do list application built with **React**, **Tailwind CSS**, **Tanstack Query**, **Framer Motion**, and **Mock Service Worker (MSW)**. Tasks are persisted in **localStorage**, making it fully functional without a backend.
 
 ---
 
