@@ -39,8 +39,12 @@ export default function TaskList() {
   const buckets = useTaskBuckets(filteredTasks);
 
   if (isLoading)
-    return <p className="text-center mt-10 text-gray-500">Loading tasks...</p>;
-
+    return (
+      <div className="flex flex-col items-center justify-center mt-20 text-gray-600">
+        <div className="w-10 h-10 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 text-base font-medium">Loading tasks...</p>
+      </div>
+    );
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
