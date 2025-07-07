@@ -20,5 +20,5 @@
   padding-left: 12px;
   font-weight: 500;
 }
-
+@custom-variant dark (&:where(.dark, .dark *));
 

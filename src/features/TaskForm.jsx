@@ -13,6 +13,8 @@ export default function TaskForm() {
     deadline: "",
   });
 
+  const [errors, setErrors] = useState({});
+
   const isEditing = selectedTask?.id;
   const queryClient = useQueryClient();
 
@@ -37,6 +39,31 @@ export default function TaskForm() {
       });
     }
   }, [selectedTask]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!form.title.trim()) {
+      newErrors.title = "Title is required.";
+    } else if (form.title.trim().length < 3) {
+      newErrors.title = "Title must be at least 3 characters.";
+    }
+
+    if (form.description.length > 300) {
+      newErrors.description = "Description must be under 300 characters.";
+    }
+
+    const now = new Date();
+    const deadline = new Date(form.deadline);
+    if (!form.deadline || isNaN(deadline.getTime())) {
+      newErrors.deadline = "Deadline is required.";
+    } else if (deadline < now) {
+      newErrors.deadline = "Deadline cannot be in the past.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const createMutation = useMutation({
     mutationFn: (data) => api.post("/tasks", data),
@@ -70,8 +97,9 @@ export default function TaskForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = { ...form };
+    if (!validateForm()) return;
 
+    const payload = { ...form };
     isEditing ? updateMutation.mutate(payload) : createMutation.mutate(payload);
   };
 
@@ -87,29 +115,44 @@ export default function TaskForm() {
           {isEditing ? "Edit Task" : "New Task"}
         </h2>
 
-        <input
-          type="text"
-          required
-          placeholder="Title"
-          className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
-          value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
-        />
+        <div>
+          <input
+            type="text"
+            required
+            placeholder="Title"
+            className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
+          {errors.title && (
+            <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+          )}
+        </div>
 
-        <textarea
-          placeholder="Description"
-          className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-        />
+        <div>
+          <textarea
+            placeholder="Description"
+            className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+          />
+          {errors.description && (
+            <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+          )}
+        </div>
 
-        <input
-          type="datetime-local"
-          required
-          className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
-          value={form.deadline}
-          onChange={(e) => setForm({ ...form, deadline: e.target.value })}
-        />
+        <div>
+          <input
+            type="datetime-local"
+            required
+            className="w-full p-2 border rounded outline-none focus:ring-2 focus:ring-indigo-500"
+            value={form.deadline}
+            onChange={(e) => setForm({ ...form, deadline: e.target.value })}
+          />
+          {errors.deadline && (
+            <p className="text-red-500 text-sm mt-1">{errors.deadline}</p>
+          )}
+        </div>
 
         <div className="flex justify-end gap-2">
           <button
@@ -123,7 +166,8 @@ export default function TaskForm() {
           <button
             type="submit"
             aria-label={isEditing ? "Update task" : "Create task"}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition"
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded transition disabled:opacity-50"
+            disabled={!form.title.trim() || !form.deadline}
           >
             {isEditing ? "Update" : "Create"}
           </button>

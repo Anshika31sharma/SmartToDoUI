@@ -6,18 +6,21 @@ A beautiful, animated, responsive, and feature-rich to-do list application built
 
 ## ✨ Features
 
-- ✅ **Create / Edit / Delete tasks**
-- 📅 **Deadline-based sorting**
-- 🎯 **Status tabs**: Ongoing, Missed, Completed
-- 🔍 **Search & Filter tasks**
-- ⚡ **Animations** with Framer Motion
-- 🌈 **Gradient UI** and responsive design
-- 🧠 **Smart categorization** based on deadlines and completion
-- 💾 **localStorage** persistence (no backend required)
-- ♿ **Accessible** with proper ARIA labels
-- 🔥 **Toast notifications** for actions
-- 🧪 **Mocked API** using MSW
+- ✅ **Create / Edit / Delete tasks** with proper toast feedback
+- 📅 **Deadline-based sorting** — sort tasks by due date or creation time
+- 🛡️ **Form validations** — all fields required with proper user feedback
+- 🗂️ **Tabbed view** — switch between **Ongoing**, **Missed**, and **Completed** tasks
+- 🔍 **Search & Filter tasks** by title dynamically
+- ⚡ **Smooth animations** with Framer Motion for UI elements
+- 🌈 **Gradient UI** and fully responsive layout
+- 🌙 **Theme toggle** — light, dark & trouble mode with emoji icons
+- 🧠 **Smart categorization** based on task deadline and completion
+- 💾 **localStorage** based persistence (fully functional offline)
+- ♿ **Accessible UI** with proper ARIA labels and keyboard navigation
+- 🔥 **Toast notifications** for task actions (Create, Update, Delete)
+- 🧪 **Mocked API** using MSW (Mock Service Worker) for development
 
+---
 ---
 
 ## 🛠️ Tech Stack
