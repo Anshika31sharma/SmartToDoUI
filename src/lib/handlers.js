@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { getTasks, saveTasks } from "../utils/Storage";
+import { getTasks, saveTasks } from "../utils/storage";
 
 export const handlers = [
   http.get("/api/tasks", () => {
