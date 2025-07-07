@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import useTaskBuckets from "../hooks/useTaskBuckets";
 import TaskCard from "../components/TaskCard";
@@ -9,12 +9,12 @@ export default function TaskList() {
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("deadline");
 
-  const { data = [], isLoading } = useQuery(["tasks"], () =>
-    api.get("/tasks").then((res) => res.data)
-  );
+  const { data: tasks = [], isLoading } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: () => api.get("/tasks").then((res) => res.data),
+  });
 
-  const tasks = Array.isArray(data) ? data : [];
-  console.log("Tasks response:", data);
+  console.log("Tasks response:", tasks);
 
   const validTasks = tasks.filter(
     (task) => task.title?.trim() && task.deadline?.trim()

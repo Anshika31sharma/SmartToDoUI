@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTaskContext } from "../context/TaskContext";
 import { api } from "../lib/api";
 import { toast } from "react-toastify";
@@ -27,9 +27,10 @@ export default function TaskForm() {
     }
   }, [selectedTask]);
 
-  const createMutation = useMutation((data) => api.post("/tasks", data), {
+  const createMutation = useMutation({
+    mutationFn: (data) => api.post("/tasks", data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["tasks"]);
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
       setSelectedTask(null);
       toast.success("Task created!");
     },
@@ -38,19 +39,17 @@ export default function TaskForm() {
     },
   });
 
-  const updateMutation = useMutation(
-    (data) => api.put(`/tasks/${selectedTask.id}`, data),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["tasks"]);
-        setSelectedTask(null);
-        toast.success("Task updated!");
-      },
-      onError: () => {
-        toast.error("Failed to update task!");
-      },
-    }
-  );
+  const updateMutation = useMutation({
+    mutationFn: (data) => api.put(`/tasks/${selectedTask.id}`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      setSelectedTask(null);
+      toast.success("Task updated!");
+    },
+    onError: () => {
+      toast.error("Failed to update task!");
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 import { TaskProvider } from "./context/TaskContext";
 import { worker } from "./lib/browser";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
